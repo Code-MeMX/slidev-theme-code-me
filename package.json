@@ -1,0 +1,77 @@
+{
+  "name": "@code-memx/slidev-theme-code-me",
+  "type": "module",
+  "version": "1.0.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "description": "Tema oficial de presentaciones Slidev para CODE ME — Estética Cyberpunk-Mexa y Modo IDE basada en DESIGN.md.",
+  "keywords": [
+    "slidev-theme",
+    "slidev",
+    "code-me",
+    "cyberpunk",
+    "dark-mode",
+    "ide"
+  ],
+  "author": "CODE ME <https://code-me.club>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Code-MeMX/slidev-theme-code-me.git"
+  },
+  "homepage": "https://github.com/Code-MeMX/slidev-theme-code-me#readme",
+  "bugs": {
+    "url": "https://github.com/Code-MeMX/slidev-theme-code-me/issues"
+  },
+  "files": [
+    "assets",
+    "components",
+    "layouts",
+    "public",
+    "setup",
+    "styles",
+    "global-bottom.vue",
+    "uno.config.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "slidev example.md --open",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "packageManager": "pnpm@11.13.0",
+  "engines": {
+    "slidev": ">=0.50.0",
+    "pnpm": ">=9.0.0"
+  },
+  "slidev": {
+    "colorSchema": "dark",
+    "highlighter": "shiki",
+    "defaults": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 980,
+      "transition": "code-me-glitch",
+      "fonts": {
+        "sans": "Montserrat",
+        "serif": "Saira",
+        "mono": "JetBrains Mono",
+        "weights": "400,600,700,800,900",
+        "italic": false
+      }
+    }
+  },
+  "dependencies": {
+    "@iconify-json/ph": "^1.2.2"
+  },
+  "devDependencies": {
+    "@slidev/cli": "latest",
+    "@slidev/types": "latest",
+    "unocss": "^66.0.0",
+    "vue": "^3.5.0"
+  },
+  "peerDependencies": {
+    "@slidev/cli": ">=0.50.0"
+  }
+}

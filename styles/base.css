@@ -1,0 +1,316 @@
+/* CODE ME Global Base Styles & Typographic Hierarchy */
+
+html,
+body,
+#app,
+#page-root,
+#slide-container,
+#slide-content,
+.slidev-page {
+  background-color: var(--cm-obsidiana);
+  color: var(--cm-text-body);
+  font-family: var(--cm-font-secundaria);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fullscreen Edge-to-Edge Viewport (eliminates black letterbox bars in Play mode without breaking print/overview/presenter) */
+@media not print {
+  html:not(.print) #page-root > #slide-container {
+    background: var(--cm-obsidiana) !important;
+  }
+
+  html:not(.print) #page-root > #slide-container > #slide-content {
+    width: calc(100% / max(var(--slidev-slide-scale, 1), 0.1)) !important;
+    height: calc(100% / max(var(--slidev-slide-scale, 1), 0.1)) !important;
+  }
+}
+
+::selection {
+  background: var(--cm-selection);
+  color: var(--cm-blanco-consola);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cm-cyan-electrico);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Base Slide Container */
+.slidev-layout {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  color: var(--cm-text-body);
+  font-family: var(--cm-font-secundaria);
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Strict Heading Scale (Section 3 DESIGN.md) */
+.slidev-layout h1 {
+  font-family: var(--cm-font-principal);
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--cm-blanco-consola);
+  margin: 0 0 0.6rem 0;
+}
+
+.slidev-layout h2 {
+  font-family: var(--cm-font-principal);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--cm-cyan-electrico);
+  margin: 0 0 0.65rem 0;
+}
+
+.slidev-layout h3 {
+  font-family: var(--cm-font-principal);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--cm-rosa-ajolote);
+  margin: 0 0 0.5rem 0;
+}
+
+.slidev-layout h4 {
+  font-family: var(--cm-font-principal);
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--cm-verde-terminal);
+  margin: 0 0 0.4rem 0;
+}
+
+.slidev-layout h5 {
+  font-family: var(--cm-font-principal);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--cm-blanco-consola);
+  margin: 0 0 0.35rem 0;
+}
+
+.slidev-layout h6 {
+  font-family: var(--cm-font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cm-rosa-ajolote);
+  margin: 0 0 0.35rem 0;
+}
+
+/* Body Reading Ergonomics (line-height >= 1.6, Slate 200 on Obsidiana) */
+.slidev-layout p {
+  font-family: var(--cm-font-secundaria);
+  color: var(--cm-text-body);
+  line-height: 1.65;
+  margin-bottom: 0.85rem;
+}
+
+.slidev-layout .lead,
+.slidev-layout .lead-text {
+  font-size: 1.15rem;
+  color: var(--cm-text-secondary);
+  line-height: 1.6;
+}
+
+.slidev-layout strong,
+.slidev-layout b {
+  font-weight: 700;
+  color: var(--cm-blanco-consola);
+}
+
+/* Anti-Pattern #3: Zero Italics for Emphasis -> Rosa Ajolote SemiBold */
+.slidev-layout em,
+.slidev-layout i:not([class]) {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--cm-rosa-ajolote);
+}
+
+/* Links (Section 5 DESIGN.md) */
+.slidev-layout a {
+  color: var(--cm-cyan-electrico);
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 240, 255, 0.35);
+  text-underline-offset: 4px;
+  border-bottom: none;
+  transition: background-color 0.2s ease, text-decoration-color 0.2s ease;
+  padding: 0 0.15rem;
+  border-radius: 2px;
+}
+
+.slidev-layout a:hover {
+  text-decoration-color: var(--cm-cyan-electrico);
+  background-color: rgba(0, 240, 255, 0.12);
+}
+
+/* Lists — Terminal / HUD Bullet Markers */
+.slidev-layout ul,
+.slidev-layout ol {
+  margin: 0.5rem 0 1rem 0;
+  padding-left: 1.4rem;
+}
+
+.slidev-layout li {
+  line-height: 1.62;
+  margin-bottom: 0.45rem;
+  color: var(--cm-text-body);
+}
+
+.slidev-layout ul > li {
+  list-style: none;
+  position: relative;
+}
+
+.slidev-layout ul > li::before {
+  content: '>';
+  position: absolute;
+  left: -1.15rem;
+  top: 0;
+  font-family: var(--cm-font-mono);
+  font-weight: 800;
+  color: var(--cm-cyan-electrico);
+}
+
+.slidev-layout ol > li::marker {
+  font-family: var(--cm-font-mono);
+  font-weight: 700;
+  color: var(--cm-rosa-ajolote);
+}
+
+/* Blockquotes — Glassmorphism + Cyan Left Border, Zero Serif/Italic */
+.slidev-layout blockquote {
+  background: var(--glass-bg-soft);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-left: 4px solid var(--cm-cyan-electrico);
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 0.85rem 1.25rem;
+  margin: 1rem 0;
+  color: var(--cm-blanco-consola);
+  font-style: normal;
+}
+
+.slidev-layout blockquote p {
+  margin: 0;
+  color: var(--cm-blanco-consola);
+}
+
+/* Tables — High-Contrast Technical Grid */
+.slidev-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0;
+  font-size: 0.9rem;
+  background: rgba(2, 6, 23, 0.55);
+  border: 1px solid var(--cm-border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.slidev-layout thead th {
+  font-family: var(--cm-font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cm-cyan-electrico);
+  background: rgba(0, 240, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.35);
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+}
+
+.slidev-layout tbody td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--cm-text-body);
+}
+
+.slidev-layout tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.slidev-layout tbody tr:hover td {
+  background: rgba(0, 240, 255, 0.04);
+}
+
+/* Horizontal Rule — Neon Hairline */
+.slidev-layout hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--cm-rosa-ajolote), var(--cm-cyan-electrico) 60%, transparent);
+  margin: 1rem 0;
+  opacity: 0.7;
+}
+
+/* Neon Glow Utilities (Section 5 DESIGN.md) */
+.asset-glow-cyan {
+  filter: drop-shadow(0 0 5px #00F0FF) drop-shadow(0 0 15px rgba(0, 240, 255, 0.5));
+}
+
+.asset-glow-pink {
+  filter: drop-shadow(0 0 5px #FF2A6D) drop-shadow(0 0 15px rgba(255, 42, 109, 0.5));
+}
+
+.asset-glow-green {
+  filter: drop-shadow(0 0 5px #05FF00) drop-shadow(0 0 12px rgba(5, 255, 0, 0.45));
+}
+
+/* Subtle RGB Split for Hero Display Elements Only (never legal/dates/body) */
+.cm-hero-glitch {
+  text-shadow:
+    -1.5px 0 rgba(255, 42, 109, 0.65),
+    1.5px 0 rgba(0, 240, 255, 0.65);
+}
+
+/* Blinking Terminal Cursor */
+.cm-cursor::after {
+  content: '_';
+  color: var(--cm-cyan-electrico);
+  font-family: var(--cm-font-mono);
+  animation: cm-blink 1s steps(2, start) infinite;
+}
+
+@keyframes cm-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Slidev Mermaid Dark Integration */
+.slidev-layout .mermaid {
+  background: rgba(2, 6, 23, 0.55);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slidev-layout .mermaid svg {
+  max-width: 100%;
+  max-height: 220px;
+  height: auto !important;
+}

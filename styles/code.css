@@ -1,0 +1,54 @@
+/* CODE ME Code & IDE Syntax Styling */
+
+.slidev-layout :not(pre) > code {
+  font-family: var(--cm-font-mono);
+  font-size: 0.92em;
+  font-weight: 600;
+  font-variant-ligatures: contextual;
+  color: var(--cm-cyan-electrico);
+  background: rgba(0, 240, 255, 0.09);
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+.slidev-layout :not(pre) > code::before,
+.slidev-layout :not(pre) > code::after {
+  content: none;
+}
+
+/* Code Blocks (Shiki) */
+.slidev-layout pre.slidev-code,
+.slidev-layout .slidev-code-wrapper pre {
+  font-family: var(--cm-font-mono);
+  font-variant-ligatures: contextual;
+  background-color: var(--cm-deep) !important;
+  border: 1px solid rgba(0, 240, 255, 0.22);
+  border-radius: 0.6rem;
+  box-shadow:
+    inset 0 1px 0 rgba(248, 250, 252, 0.06),
+    0 12px 32px rgba(2, 6, 23, 0.55);
+}
+
+.slidev-layout pre code {
+  font-family: var(--cm-font-mono);
+  font-variant-ligatures: contextual;
+}
+
+/* Highlighted Code Lines */
+.slidev-code .line.highlighted {
+  background: rgba(0, 240, 255, 0.12);
+  border-left: 3px solid var(--cm-cyan-electrico);
+}
+
+/* Slidev Code Copy Button */
+.slidev-code-copy {
+  color: var(--cm-text-secondary) !important;
+  border: 1px solid var(--glass-border) !important;
+  background: rgba(15, 23, 42, 0.85) !important;
+}
+
+.slidev-code-copy:hover {
+  color: var(--cm-cyan-electrico) !important;
+  border-color: var(--cm-cyan-electrico) !important;
+}

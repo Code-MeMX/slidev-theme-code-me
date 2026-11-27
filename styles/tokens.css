@@ -1,0 +1,52 @@
+/* CODE ME Design Tokens — Source of Truth: DESIGN.md */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Montserrat:wght@400;600;700;800&family=Saira:wght@400;600;700;800;900&display=swap');
+
+:root {
+  /* Core RGB Brand Tokens (Dark Mode Native) */
+  --cm-obsidiana: #0F172A;
+  --cm-deep: #020617;
+  --cm-blanco-consola: #F8FAFC;
+  --cm-rosa-ajolote: #FF2A6D;
+  --cm-cyan-electrico: #00F0FF;
+  --cm-verde-terminal: #05FF00;
+
+  /* Rosa Scale */
+  --cm-rosa-dark: #E61958;
+  --cm-rosa-darker: #CC154E;
+  --cm-rosa-darkest: #990F3B;
+  --cm-rosa-light: #FF4D84;
+  --cm-rosa-lighter: #FF6696;
+  --cm-rosa-lightest: #FF99BA;
+
+  /* Neutral Text & Semantic Tokens */
+  --cm-text-body: #E2E8F0;
+  --cm-text-secondary: #94A3B8;
+  --cm-text-tertiary: #64748B;
+  --cm-warning: #FFB800;
+  --cm-danger: #FF4D4D;
+
+  /* Surfaces & Glassmorphism */
+  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-bg-soft: rgba(15, 23, 42, 0.62);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --cm-border: rgba(248, 250, 252, 0.15);
+  --cm-selection: rgba(0, 240, 255, 0.3);
+
+  /* Typography */
+  --cm-font-principal: 'Saira', sans-serif;
+  --cm-font-secundaria: 'Montserrat', sans-serif;
+  --cm-font-mono: 'JetBrains Mono', 'Fira Code', Consolas, 'Courier New', monospace;
+
+  /* Slidev Core Variables Override */
+  --slidev-slide-container-background: var(--cm-obsidiana);
+  --slidev-theme-primary: var(--cm-cyan-electrico);
+  --slidev-theme-secondary: var(--cm-rosa-ajolote);
+  --slidev-code-background: var(--cm-deep);
+  --slidev-code-foreground: var(--cm-blanco-consola);
+  --slidev-code-font-family: var(--cm-font-mono);
+  --slidev-code-font-size: 0.88rem;
+  --slidev-code-line-height: 1.55;
+  --slidev-code-padding: 1rem 1.25rem;
+  --slidev-code-radius: 0.5rem;
+  --slidev-transition-duration: 280ms;
+}

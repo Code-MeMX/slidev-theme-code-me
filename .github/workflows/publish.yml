@@ -1,0 +1,115 @@
+name: Publicar paquete en GitHub Packages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: publish-github-packages-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Compilar y publicar en GitHub Packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Verificar compilación
+        run: pnpm build
+
+      - name: Configurar autenticación y resolver siguiente versión
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REPOSITORY_OWNER: ${{ github.repository_owner }}
+        run: |
+          OWNER=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')
+          {
+            echo "@${OWNER}:registry=https://npm.pkg.github.com"
+            echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}"
+          } >> ~/.npmrc
+
+          node --input-type=module - <<'EOF'
+          import { execSync } from 'node:child_process'
+          import { readFileSync, writeFileSync } from 'node:fs'
+
+          const owner = process.env.GITHUB_REPOSITORY_OWNER.toLowerCase()
+          const repo = process.env.GITHUB_REPOSITORY
+          const registry = 'https://npm.pkg.github.com'
+
+          const pkgPath = './package.json'
+          const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
+
+          // Asegura que el scope coincida con el propietario del repositorio en GitHub Packages
+          const unscopedName = pkg.name.includes('/') ? pkg.name.split('/')[1] : pkg.name
+          pkg.name = `@${owner}/${unscopedName}`
+          pkg.repository = {
+            type: 'git',
+            url: `https://github.com/${repo}.git`,
+          }
+          pkg.publishConfig = {
+            ...(pkg.publishConfig || {}),
+            registry,
+          }
+
+          // Consulta versiones existentes para evitar error 409 Conflict en pushes seguidos
+          let published = []
+          try {
+            const raw = execSync(
+              `npm view "${pkg.name}" versions --json --registry=${registry}`,
+              {
+                env: { ...process.env, npm_config_registry: registry },
+                stdio: ['ignore', 'pipe', 'pipe'],
+              },
+            ).toString().trim()
+            if (raw) {
+              const parsed = JSON.parse(raw)
+              published = Array.isArray(parsed) ? parsed : [parsed]
+            }
+          } catch {
+            // El paquete todavía no existe en GitHub Packages
+            published = []
+          }
+
+          if (published.includes(pkg.version)) {
+            const [major, minor] = pkg.version.split('.').map(n => Number.parseInt(n, 10) || 0)
+            const matchingPatches = published
+              .map(v => /^(\d+)\.(\d+)\.(\d+)$/.exec(v))
+              .filter(m => m && Number(m[1]) === major && Number(m[2]) === minor)
+              .map(m => Number(m[3]))
+            const nextPatch = matchingPatches.length > 0 ? Math.max(...matchingPatches) + 1 : 1
+            pkg.version = `${major}.${minor}.${nextPatch}`
+            console.log(`Versión ya publicada -> publicando ${pkg.name}@${pkg.version}`)
+          } else {
+            console.log(`Publicando versión declarada ${pkg.name}@${pkg.version}`)
+          }
+
+          writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`)
+          EOF
+
+      - name: Publicar paquete en GitHub Packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm publish --no-git-checks --registry https://npm.pkg.github.com
