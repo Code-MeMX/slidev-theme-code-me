@@ -48,30 +48,32 @@ withDefaults(defineProps<{
 }
 
 .cm-cmd-btn--pink {
-  background: var(--cm-rosa-ajolote);
+  background-color: var(--cm-rosa-ajolote);
   box-shadow: 0 0 18px rgba(255, 42, 109, 0.35);
 }
 
 .cm-cmd-btn--pink:hover {
-  background: var(--cm-rosa-light);
+  background-color: var(--cm-rosa-light);
   box-shadow: 0 0 24px rgba(255, 42, 109, 0.65);
 }
 
 .cm-cmd-btn--cyan {
-  background: var(--cm-cyan-electrico);
+  background-color: var(--cm-cyan-electrico);
   box-shadow: 0 0 18px rgba(0, 240, 255, 0.35);
 }
 
 .cm-cmd-btn--cyan:hover {
+  background-color: var(--cm-cyan-electrico);
   box-shadow: 0 0 24px rgba(0, 240, 255, 0.65);
 }
 
 .cm-cmd-btn--green {
-  background: var(--cm-verde-terminal);
+  background-color: var(--cm-verde-terminal);
   box-shadow: 0 0 18px rgba(5, 255, 0, 0.32);
 }
 
 .cm-cmd-btn--green:hover {
+  background-color: var(--cm-verde-terminal);
   box-shadow: 0 0 24px rgba(5, 255, 0, 0.6);
 }
 </style>

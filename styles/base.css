@@ -146,8 +146,8 @@ body,
   color: var(--cm-rosa-ajolote);
 }
 
-/* Links (Section 5 DESIGN.md) */
-.slidev-layout a {
+/* Links (Section 5 DESIGN.md) — exclude CTA/button anchors */
+.slidev-layout a:not(.cm-cmd-btn):not([class*="cm-btn"]) {
   color: var(--cm-cyan-electrico);
   text-decoration: underline;
   text-decoration-color: rgba(0, 240, 255, 0.35);
@@ -158,7 +158,7 @@ body,
   border-radius: 2px;
 }
 
-.slidev-layout a:hover {
+.slidev-layout a:not(.cm-cmd-btn):not([class*="cm-btn"]):hover {
   text-decoration-color: var(--cm-cyan-electrico);
   background-color: rgba(0, 240, 255, 0.12);
 }
